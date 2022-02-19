@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+main {
+  @apply container mx-auto py-8;
+}
+
+.btn {
+  @apply mt-4 mb-3 w-full py-2 rounded-md transition duration-100;
+
+  &-success {
+    @apply bg-green-500 hover:bg-green-400 text-white;
+  }
+
+  &-danger {
+    @apply bg-red-500 hover:bg-red-600 px-5 text-white;
+  }
+}

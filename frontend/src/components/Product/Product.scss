@@ -1,0 +1,23 @@
+.card {
+    @apply w-80 mb-8 border rounded shadow hover:shadow-lg;
+    @apply transition duration-300 ease-in-out cursor-pointer;
+    &__figure {
+      @apply transition duration-700 ease-in-out group-hover:opacity-60;
+    }
+    &__container {
+      @apply p-4;
+      div {
+        @apply flex py-2;
+        p {
+          @apply mr-2 text-xs odd:text-gray-600 even:text-red-600;
+        }
+      }
+    }
+  }
+  
+  .rating {
+    span {
+      @apply mr-0.5;
+    }
+  }
+  

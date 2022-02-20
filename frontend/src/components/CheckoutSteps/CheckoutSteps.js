@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export function CheckoutSteps({ step1, step2, step3, step4 }) {
   return (
     <>
-      <nav className="flex justify-between mb-4">
+      <nav className="flex justify-around mb-4">
         <div>
           {step1 ? (
             <Link to="/login" className="font-bold">

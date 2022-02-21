@@ -4,47 +4,34 @@ import { Link } from "react-router-dom";
 export function CheckoutSteps({ step1, step2, step3, step4 }) {
   return (
     <>
-      <nav className="flex justify-around mb-4">
-        <div>
-          {step1 ? (
-            <Link to="/login" className="font-bold">
-              Login User
-            </Link>
-          ) : (
-            <div>Login User</div>
-          )}
-        </div>
-
-        <div>
-          {step2 ? (
-            <Link to="/shipping" className="font-bold">
-              Shipping
-            </Link>
-          ) : (
-            <div>Shipping</div>
-          )}
-        </div>
-
-        <div>
-          {step3 ? (
-            <Link to="/payment" className="font-bold">
-              Payment
-            </Link>
-          ) : (
-            <div>Payment</div>
-          )}
-        </div>
-
-        <div>
-          {step4 ? (
-            <Link to="/placeorder" className="font-bold">
-              Place Order
-            </Link>
-          ) : (
-            <div>Place Order</div>
-          )}
-        </div>
-      </nav>
+      <ul className="steps w-full mb-8">
+        {step1 ? (
+          <li className="step step-primary text-indigo-600">Login User</li>
+        ) : (
+          <li className="step step-primary text-indigo-600">Login User</li>
+        )}
+        {step2 ? (
+          <li className="step step-primary text-indigo-600">
+            <Link to="/shipping">Shipping</Link>
+          </li>
+        ) : (
+          <li className="step">Shipping</li>
+        )}
+        {step3 ? (
+          <li className="step step-primary text-indigo-600">
+            <Link to="/payment">Payment</Link>
+          </li>
+        ) : (
+          <li className="step">Payment</li>
+        )}
+        {step4 ? (
+          <li className="step step-primary text-indigo-600">
+            <Link to="/placeorder">Place Order</Link>
+          </li>
+        ) : (
+          <li className="step">Place Order</li>
+        )}
+      </ul>
     </>
   );
 }

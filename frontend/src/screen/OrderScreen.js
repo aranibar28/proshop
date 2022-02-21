@@ -52,44 +52,44 @@ export function OrderScreen() {
   return (
     <FormContainer>
       <CheckoutSteps step1 step2 step3 step4 />
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mx-4 sm:mx-16 border-2 p-4">
-        <div>
-          <div className="mb-8">
-            <h2 className="font-bold">Shipping</h2>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mx-4 sm:mx-16 p-6 sm:p-8 border-2 rounded-xl shadow-md">
+        <div className="col-span-2">
+          <div className="mb-4">
+            <h3>Dirección de envío</h3>
             <p>
               {cart.shippingAddress.address} - {cart.shippingAddress.postalCode}
               , {cart.shippingAddress.city} - {cart.shippingAddress.country}
             </p>
           </div>
-          <div className="mb-8">
-            <h2 className="font-bold">Método de Pago</h2>
+          <div className="mb-4">
+            <h3>Método de Pago</h3>
             <p>{cart.paymentMethod}</p>
           </div>
-          <div className="mb-8">
-            <h2 className="font-bold">Lista de Productos</h2>
+          <div>
+            <h3>Lista de Productos</h3>
             <div>
               {cart.cartItems.length === 0 ? (
                 <Message>Tu carrito esta vacío</Message>
               ) : (
                 <>
                   {cart.cartItems.map((item, index) => (
-                    <div key={index} className="mb-4">
-                      <div className="flex place-items-center border-2 rounded-md">
+                    <div key={index} className="mt-4">
+                      <div className="flex place-items-center">
                         <img
+                          className="w-[150px] rounded-xl"
                           src={item.image}
                           alt=""
-                          style={{ width: "150px" }}
                         />
-                        <div className="">
+                        <div className="w-full p-4">
                           <Link
-                            className="text-indigo-600 hover:underline"
+                            className="link link-secondary"
                             to={`/product/${item.product}`}
                           >
                             {item.title}
                           </Link>
-                          <div>
-                            {item.qty} x S/. {item.price} = S/.{" "}
-                            {(item.qty * item.price).toFixed(2)}
+                          <div className="mt-2">
+                            {item.qty} x {item.price} PEN →{" "}
+                            {(item.qty * item.price).toFixed(2)} PEN
                           </div>
                         </div>
                       </div>
@@ -100,40 +100,39 @@ export function OrderScreen() {
             </div>
           </div>
         </div>
-        <div>
+
+        <div className="col-span-2 md:col-span-1">
+          <h2 className="mb-8 text-center uppercase">Resumen del pedido</h2>
+          <div className="flex justify-between">
+            <span className="mb-2">Subtotal:</span>
+            <p>{cart.itemsPrice} PEN</p>
+          </div>
+          <div className="flex justify-between">
+            <span className="mb-2">Precio de envío:</span>
+            <p>{cart.shippingPrice} PEN</p>
+          </div>
+          <div className="flex justify-between">
+            <span className="mb-2">IGV:</span>
+            <p>{cart.taxPrice} PEN</p>
+          </div>
+          <div className="flex justify-between border-t pt-2">
+            <span className="mb-2">Total:</span>
+            <p>{cart.totalPrice} PEN</p>
+          </div>
+
+          <div className="text-red-600">
+            {error && <Message>{error}</Message>}
+          </div>
+
           <div>
-            <h2>Resumen del pedido</h2>
-            <div className="flex justify-between">
-              <span className="font-bold mr-2">Productos:</span>
-              <p>S/. {cart.itemsPrice} </p>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-bold mr-2">Delivery:</span>
-              <p>S/. {cart.shippingPrice}</p>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-bold mr-2">I.G.V.:</span>
-              <p>S/. {cart.taxPrice} </p>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-bold mr-2">Total:</span>
-              <p>S/. {cart.totalPrice} </p>
-            </div>
-
-            <div className="text-red-600">
-              {error && <Message>{error}</Message>}
-            </div>
-
-            <div>
-              <button
-                type="button"
-                className="btn btn-success"
-                disabled={cart.cartItems === 0}
-                onClick={placeOrder}
-              >
-                Place Order
-              </button>
-            </div>
+            <button
+              type="button"
+              className="btn btn-primary btn-block mt-2"
+              disabled={cart.cartItems === 0}
+              onClick={placeOrder}
+            >
+              Realizar Pedido
+            </button>
           </div>
         </div>
       </div>

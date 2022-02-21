@@ -25,8 +25,11 @@ export function ShippingScreen() {
   return (
     <FormContainer>
       <CheckoutSteps step1 step2 />
-      <h2 className="text-2xl font-bold mb-4">Envío del Pedido</h2>
-      <form onSubmit={submitHandler}>
+      <form
+        onSubmit={submitHandler}
+        className="max-w-[720px] mx-4 sm:mx-auto p-6 sm:p-8 border-2 rounded-xl shadow-md"
+      >
+        <h2 className="mb-4 uppercase">Envío del Pedido</h2>
         <div id="address" className="mb-2">
           <label className="block text-md mb-2">Direccion</label>
           <input
@@ -75,7 +78,7 @@ export function ShippingScreen() {
           ></input>
         </div>
 
-        <button type="submit" className="btn btn-success">
+        <button type="submit" className="btn btn-primary btn-block mt-2">
           Continuar
         </button>
       </form>

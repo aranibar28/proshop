@@ -26,20 +26,24 @@ export function PaymentScreen() {
   return (
     <FormContainer>
       <CheckoutSteps step1 step2 step3 />
-      <form onSubmit={submitHandler}>
+      <form
+        onSubmit={submitHandler}
+        className="w-[375px] mx-auto border-2 rounded-xl shadow-md p-6 sm:p-8"
+      >
         <div className="mb-2">
-          <h2 className="block text-md mb-2">Seleccionar Método</h2>
-          <label>
+          <h2 className="mb-4 uppercase">Seleccionar Método</h2>
+          <label className="flex place-items-center mb-4">
             <input
-              type="radio"
+              className="radio radio-primary mr-2"
               id="paypal"
+              type="radio"
               checked
               onChange={(e) => setPaymentMethod(e.target.value)}
-            ></input>
+            />
             PayPal or Credit Card
           </label>
         </div>
-        <button type="submit" className="btn btn-success">
+        <button type="submit" className="btn btn-primary btn-block">
           Continuar
         </button>
       </form>

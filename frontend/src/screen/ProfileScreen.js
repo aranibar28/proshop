@@ -45,7 +45,7 @@ export function ProfileScreen() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mx-8">
       <div>
-        <h2 className="text-2xl font-bold mb-4">Mi Perfil</h2>
+        <h2 className="mb-4">Mi Perfil</h2>
 
         {message && <Message variant="danger">{message}</Message>}
         {error && <Message variant="danger">{error}</Message>}

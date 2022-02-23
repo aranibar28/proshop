@@ -108,12 +108,12 @@ export function PlaceOrderScreen() {
             <p>{cart.itemsPrice} PEN</p>
           </div>
           <div className="flex justify-between">
-            <span className="mb-2">Precio de envío:</span>
-            <p>{cart.shippingPrice} PEN</p>
+            <span className="mb-2">IGV (18%):</span>
+            <p>{cart.taxPrice} PEN</p>
           </div>
           <div className="flex justify-between">
-            <span className="mb-2">IGV:</span>
-            <p>{cart.taxPrice} PEN</p>
+            <span className="mb-2">Precio de envío:</span>
+            <p>{cart.shippingPrice} PEN</p>
           </div>
           <div className="flex justify-between border-t pt-2">
             <span className="mb-2">Total:</span>

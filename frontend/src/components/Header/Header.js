@@ -107,7 +107,7 @@ export const Header = () => {
       <nav className="nav">
         <div className="nav__content flex place-content-between">
           <NavLink className="brand" to="/">
-            <Logo /> Luffyshop
+            <Logo /> My Shopping
           </NavLink>
           <div className="nav__content-items hidden md:block">
             <div className="flex flex-col md:flex-row lg:mx-6">

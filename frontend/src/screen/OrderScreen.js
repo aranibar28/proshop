@@ -1,16 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Loader, Message } from "../components";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrderDetails } from "../actions/orderActions";
+import { PayPalButton } from "react-paypal-button-v2";
+import { getOrderDetails, payOrder } from "../actions/orderActions";
+import { ORDER_PAY_RESET } from "../constants/orderConstants";
 
 export function OrderScreen() {
   const dispatch = useDispatch();
   const params = useParams();
   const orderId = params.id;
 
+  const [sdkReady, setSdkReady] = useState(false);
+
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, error, loading } = orderDetails;
+
+  const orderPay = useSelector((state) => state.orderPay);
+  const { loading: loadingPay, success: successPay } = orderPay;
 
   if (!loading && !error) {
     order.itemsPrice = order.orderItems
@@ -18,11 +25,34 @@ export function OrderScreen() {
       .toFixed(2);
   }
 
+  const addPaypalScript = () => {
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src =
+      "https://www.paypal.com/sdk/js?client-id=ARHVkkVSMOwNcRs-LUw16eMTOe19KT64Ss5utXSW9cwLPVVmz-AMCDz1xKWbyJouSzqxz95Lf4xTwBz0";
+    script.async = true;
+    script.onload = () => {
+      setSdkReady(true);
+    };
+    document.body.appendChild(script);
+  };
+
   useEffect(() => {
-    if (!order || order.id !== Number(orderId)) {
+    if (!order || successPay || order.id !== Number(orderId)) {
+      dispatch({ type: ORDER_PAY_RESET });
       dispatch(getOrderDetails(orderId));
+    } else if (!order.is_paid) {
+      if (!window.paypal) {
+        addPaypalScript();
+      } else {
+        setSdkReady(true);
+      }
     }
-  }, [dispatch, order, orderId]); // eslint-disable-line
+  }, [dispatch, order, orderId, successPay]); // eslint-disable-line
+
+  const successPaymentHandler = (paymentResult) => {
+    dispatch(payOrder(orderId, paymentResult));
+  };
 
   return loading ? (
     <Loader />
@@ -124,6 +154,20 @@ export function OrderScreen() {
             <span className="mb-2">Total:</span>
             <p>{order.total_price} PEN</p>
           </div>
+
+          {!order.is_paid && (
+            <div>
+              {loadingPay && <Loader />}
+              {!sdkReady ? (
+                <Loader />
+              ) : (
+                <PayPalButton
+                  amount={order.total_price}
+                  onSuccess={successPaymentHandler}
+                />
+              )}
+            </div>
+          )}
         </div>
       </div>
     </>

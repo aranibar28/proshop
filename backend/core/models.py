@@ -41,8 +41,9 @@ class Order(models.Model):
     delivered_at = models.DateTimeField(auto_now_add=False, null=True, blank=True)
     created_at =models.DateTimeField(auto_now_add=True)
 
-    def __strt__(self):
+    def __str__(self):
         return str(self.created_at)
+
 
 class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)

@@ -1,11 +1,13 @@
 import React from "react";
 
 export const Message = ({ variant, children }) => {
-  return <div variant={variant}>{children}</div>;
+  return (
+    <div className={`alert shadow-md alert-${variant} rounded mt-2`}>
+      {children}
+    </div>
+  );
 };
 
 Message.defaultProps = {
   variant: "info",
 };
-
-export default Message;

@@ -6,4 +6,5 @@ export * from "./ProfileScreen";
 export * from "./RegisterScreem";
 export * from "./ShippingScreen";
 export * from "./PaymentScreen";
+export * from "./PlaceOrderScreen"
 export * from "./OrderScreen";

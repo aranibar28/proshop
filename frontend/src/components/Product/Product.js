@@ -4,11 +4,11 @@ import "./Product.scss";
 
 export function Product({ product }) {
   return (
-    <div className="card group">
-      <div className="card__figure">
+    <div className="target group">
+      <div className="target__figure">
         <img src={product.image} alt={product.id} />
       </div>
-      <div className="card__container">
+      <div className="target__container">
         <h3>{product.title}</h3>
         <Rating
           value={product.rating}

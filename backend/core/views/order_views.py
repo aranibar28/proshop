@@ -6,6 +6,7 @@ from core.models import Product, Order, OrderItem, ShippingAddress
 from core.serializers import ProductSerializer, OrderSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
+from datetime import datetime
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -46,7 +47,7 @@ def addOrderItems(request):
                 title=product.title,
                 quantity=i['qty'],
                 price=i['price'],
-                image=product.image.url,
+                image=product.image,
             )
 
             # (4) Update stock
@@ -56,3 +57,25 @@ def addOrderItems(request):
         serializer = OrderSerializer(order, many=False)
         return Response(serializer.data)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getOrderById(request, pk):
+    user = request.user
+    try:
+        order = Order.objects.get(id=pk)
+        if user.is_staff or order.user == user:
+            serializer = OrderSerializer(order, many=False)
+            return Response(serializer.data)
+        else:
+            Response({'detail': 'No está autorizado a ver este pedido'}, status=status.HTTP_400_BAD_REQUEST)
+    except:
+        return Response({'detail': 'El pedido no existe'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateOrderToPaid(request, pk):
+    order = Order.objects.get(id=pk)
+    order.is_paid = True
+    order.paid_at = datetime.now()
+    order.save()
+    return Response('Order was paid')
